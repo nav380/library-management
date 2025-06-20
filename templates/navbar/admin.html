@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Library Admin{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Top Navbar -->
+  <header class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-green-700">Library Admin Panel</h1>
+    <div class="flex items-center space-x-4">
+      <span class="text-gray-700">Welcome, {{ request.user.username }}</span>
+      <a href="{% url 'logout' %}" class="text-red-600 hover:underline">Logout</a>
+    </div>
+  </header>
+
+  <div class="flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white h-screen shadow-md p-4">
+        <nav class="space-y-4 ml-4">
+          <a href="{% url 'home' %}"
+             class="block {% if request.path == '/' %}text-blue-600 font-semibold{% else %}hover:text-green-600{% endif %}">
+             Dashboard
+          </a>
+          <a href="{% url 'books' %}"
+             class="block {% if request.path == '/books/' %}text-blue-600 font-semibold{% else %}hover:text-green-600{% endif %}">
+             Books
+          </a>
+          <a href="{% url 'members' %}"
+             class="block {% if request.path == '/members/' %}text-blue-600 font-semibold{% else %}hover:text-green-600{% endif %}">
+             Members
+          </a>
+          <a href="{% url 'borrow' %}"
+             class="block {% if request.path == '/borrow/' %}text-blue-600 font-semibold{% else %}hover:text-green-600{% endif %}">
+             Borrow
+          </a>
+          <a href="{% url 'borrow_records' %}"
+             class="block {% if request.path == '/borrow-records/' %}text-blue-600 font-semibold{% else %}hover:text-green-600{% endif %}">
+             Borrow Records
+          </a>
+          <a href="{% url 'returns' %}"
+             class="block {% if request.path == '/returns/' %}text-blue-600 font-semibold{% else %}hover:text-green-600{% endif %}">
+             Returns
+          </a>
+        
+          <a href="{% url 'logout' %}" class="block text-red-600 hover:underline">Logout</a>
+        </nav>
+      </aside>
+      
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 overflow-y-auto">
+      {% block content %}
+      <!-- Your content will go here -->
+      {% endblock %}
+    </main>
+
+  </div>
+
+</body>
+</html>

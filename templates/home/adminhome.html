@@ -1,0 +1,45 @@
+
+  <!-- Sidebar -->
+  {% extends "navbar/admin.html" %}
+
+  {% block title %}Dashboard{% endblock %}
+  
+  {% block content %}
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      <h1 class="text-2xl font-bold mb-4">Welcome, Admin</h1>
+
+      <!-- Stats Overview -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white p-4 shadow rounded-lg">
+          <h3 class="text-sm text-gray-500">Total Books</h3>
+          <p class="text-2xl font-bold text-green-700">1,230</p>
+        </div>
+        <div class="bg-white p-4 shadow rounded-lg">
+          <h3 class="text-sm text-gray-500">Active Members</h3>
+          <p class="text-2xl font-bold text-green-700">458</p>
+        </div>
+        <div class="bg-white p-4 shadow rounded-lg">
+          <h3 class="text-sm text-gray-500">Books Borrowed</h3>
+          <p class="text-2xl font-bold text-green-700">327</p>
+        </div>
+        <div class="bg-white p-4 shadow rounded-lg">
+          <h3 class="text-sm text-gray-500">Overdue Returns</h3>
+          <p class="text-2xl font-bold text-red-600">15</p>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="bg-white shadow rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">Recent Activity</h2>
+        <ul class="space-y-3 text-sm text-gray-600">
+          <li>📚 <strong>Jane Doe</strong> borrowed <em>"The Great Gatsby"</em></li>
+          <li>📚 <strong>Mark Smith</strong> returned <em>"1984"</em></li>
+          <li>➕ New book added: <em>"Atomic Habits"</em></li>
+          <li>👤 New member registered: <strong>Emma Brown</strong></li>
+        </ul>
+      </div>
+    </main>
+  </div>
+  {% endblock %}
