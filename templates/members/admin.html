@@ -1,0 +1,48 @@
+
+
+  <!-- Sidebar -->
+  {% extends "navbar/admin.html" %}
+
+  {% block title %}Dashboard{% endblock %}
+  
+  {% block content %}
+
+    
+  <div class="max-w-5xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
+    <h2 class="text-2xl font-bold mb-6">👥 Members List</h2>
+  
+    <table class="min-w-full text-sm text-left border-2">
+      <thead class="bg-gray-100 text-gray-600 font-medium">
+        <tr>
+          <th class="p-3">Username</th>
+          <th class="p-3">Recharge Time</th>
+          <th class="p-3">Valid Till</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        {% for member in members %}
+        <tr>
+          <td class="p-3">{{ member.user.username }}</td>
+          <td class="p-3">
+            {% if member.recharge_time %}
+              {{ member.recharge_time|date:"Y-m-d H:i" }}
+            {% else %}
+              <span class="text-red-500">Not Recharged</span>
+            {% endif %}
+          </td>
+          <td class="p-3">
+            {% if member.valid_till %}
+              {{ member.valid_till|date:"Y-m-d H:i" }}
+            {% else %}
+              <span class="text-gray-400">—</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+    
+ 
+  {% endblock %}

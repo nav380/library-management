@@ -1,0 +1,113 @@
+
+  <!-- Sidebar -->
+  {% extends "navbar/admin.html" %}
+
+  {% block title %}Dashboard{% endblock %}
+  
+  {% block content %}
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      
+
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between mb-6">
+                    <h1 class="text-3xl font-bold mb-6">📚 Book List</h1>
+
+                <button onclick="toggleAddForm()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded mb-6 mt-2">
+                    {{ book.id|default:''|yesno:"✏️ Edit Book,➕ Add New Book" }}
+                </button>
+                </div>
+
+                
+                
+
+
+                <div id="addBookForm" class="bg-white p-6 rounded-lg shadow-md mt-6 " style="display: {% if book.id %}block{% else %}none{% endif %};">
+                    <h2 class="text-2xl font-semibold mb-6">
+                        {{ book.id|default:''|yesno:"✏️ Edit Book,➕ Add New Book" }}
+                    </h2>
+                
+                    <form method="post" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {% csrf_token %}
+                        <input name="title" placeholder="Title" value="{{ book.title|default:'' }}" class="border-2 border-gray-300 p-2 rounded" required />
+                        <input name="author" placeholder="Author" value="{{ book.author|default:'' }}" class="border-2 border-gray-300 p-2 rounded" required />
+                        <input name="isbn" placeholder="ISBN" value="{{ book.isbn|default:'' }}" class="border-2 border-gray-300 p-2 rounded" required />
+                        <input type="date" name="publication_date" value="{{ book.publication_date|default:'' }}" class="border-2 border-gray-300 p-2 rounded" required />
+                        <input name="pages" type="number" placeholder="Pages" value="{{ book.pages|default:'' }}" class="border-2 border-gray-300 p-2 rounded" required />
+                        <input name="language" placeholder="Language" value="{{ book.language|default:'' }}" class="border-2 border-gray-300 p-2 rounded" required />
+                        <input name="publisher" placeholder="Publisher" value="{{ book.publisher|default:'' }}" class="border-2 border-gray-300 p-2 rounded" required />
+                        <input name="serial_number" placeholder="Serial #" value="{{ book.serial_number|default:'' }}" class="border-2 border-gray-300 p-2 rounded" required />
+                        <input name="numberofcopies" type="number" placeholder="Total Copies" value="{{ book.numberofcopies|default:'' }}" class="border-2 border-gray-300 p-2 rounded" required />
+                        <input name="available_copies" type="number" placeholder="Available Copies" value="{{ book.available_copies|default:'' }}" class="border-2 border-gray-300 p-2 rounded" required />
+                
+                        <div class="sm:col-span-2">
+                            <button type="submit" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                                {{ book.id|default:''|yesno:"💾 Save Changes,➕ Add Book" }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                
+        
+                <div class="overflow-x-auto bg-white shadow-md rounded-lg mb-8 mt-4 ">
+                    <table class="min-w-full divide-y divide-gray-200  border-2 " >
+                        <thead class="bg-gray-100">
+                            <tr class="text-left text-sm font-medium text-gray-600">
+                                <th class="p-3">Title</th>
+                                <th class="p-3">Author</th>
+                                <th class="p-3">ISBN</th>
+                                <th class="p-3">Pub. Date</th>
+                                <th class="p-3">Pages</th>
+                                <th class="p-3">Language</th>
+                                <th class="p-3">Publisher</th>
+                                <th class="p-3">Serial #</th>
+                                <th class="p-3">Total</th>
+                                <th class="p-3">Available</th>
+                                <th class="p-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            {% for book in books %}
+                            <tr class="text-sm">
+                                <tr class="text-sm">
+                                    <td class="p-2">{{ book.title }}</td>
+                                    <td class="p-2">{{ book.author }}</td>
+                                    <td class="p-2">{{ book.isbn }}</td>
+                                    <td class="p-2">{{ book.publication_date }}</td>
+                                    <td class="p-2">{{ book.pages }}</td>
+                                    <td class="p-2">{{ book.language }}</td>
+                                    <td class="p-2">{{ book.publisher }}</td>
+                                    <td class="p-2">{{ book.serial_number }}</td>
+                                    <td class="p-2">{{ book.numberofcopies }}</td>
+                                    <td class="p-2">{{ book.available_copies }}</td>
+                                    <td class="p-2">
+                                      <a href="{% url 'edit_book' book.id %}" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">
+                                        ✏️ Edit
+                                      </a>
+                                    </td>
+                                  </tr>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        
+               
+            </div>
+            
+        </main>
+<script>
+    function toggleAddForm() {
+        const form = document.getElementById('addBookForm');
+        if (form.style.display === 'none' || form.style.display === '') {
+            form.style.display = 'block';
+        } else {
+            form.style.display = 'none';
+        }
+    }
+  </script>
+
+
+  {% endblock %}

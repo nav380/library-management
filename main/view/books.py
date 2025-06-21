@@ -1,18 +1,6 @@
 from django.shortcuts import render,redirect
 
-def home(request):
-    try:
-        if request.user.is_authenticated:
-            if request.user.is_staff:
-                return render(request, 'home/adminhome.html')
-            elif request.user.is_customer:
-                return render(request, 'home/home.html')
-        else:
-            return render(request, 'error.html', {'error': 'User is not authenticated'})
-    except Exception as e:
-        print(f"Error: {e}")
-        
-        return redirect('login')
+
 
 
 # library/views.py
@@ -39,7 +27,8 @@ def add_book(request):
             available_copies=request.POST.get('available_copies')
         )
         return redirect('books')
-    return render(request, 'library/add_book.html')
+    books = Book.objects.all()
+    return render(request, 'books/admin.html',{'books': books})
 
 def edit_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
@@ -56,4 +45,5 @@ def edit_book(request, book_id):
         book.available_copies = request.POST.get('available_copies')
         book.save()
         return redirect('books')
-    return render(request, 'library/edit_book.html', {'book': book})
+    books = Book.objects.all()
+    return render(request, 'books/admin.html', {'books': books , 'book': book})
