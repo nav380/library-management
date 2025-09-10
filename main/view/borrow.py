@@ -1,13 +1,18 @@
 from django.shortcuts import render,redirect
 
-from main.models import issues,Book
+from main.models import Issue,Book
+from accounts.models import User
 
 def borrow(request):
     if request.method == 'GET':
-        books = Book.objects.all()
-        return render(request, 'borrow/admin.html', {'books': books})
+        books = Book.objects.filter(available_copies__gt=0)
+        members = User.objects.all()
+        return render(request, 'borrow/admin.html', {'books': books ,'members': members})
     if request.method == 'POST':
-        book=request.POST.get('book')
+        bookid=request.POST.get('book')
         user=request.user
-        issues.object.create(book=book,user=user)
-        return redirect('borrow')
+        book=Book.objects.get(id=bookid)
+        book.available_copies-=1
+        book.save()
+        Issue.objects.create(book=book,user=user)
+        return redirect('borrow_records')

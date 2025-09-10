@@ -4,6 +4,7 @@ from .view.home import home
 from .view.members import member_list, add_member, edit_member
 from .view.borrow import borrow 
 from .view.borrow_records import borrow_record
+from .view.return_book import return_book
 
 
 
@@ -19,6 +20,7 @@ urlpatterns = [
     path('borrow/',borrow,name='borrow'),
     path('borrow-records/',borrow_record,name='borrow_records'),
     path('returns/',borrow,name='returns'),
+    path('return-records/',return_book,name='return_book'),
     
  
     
