@@ -11,7 +11,6 @@ def login_view(request):
             login(request, user)
             messages.success(request, 'Login successful')
             print(request.user)
-            print("hello")
             return redirect('home')  # Change to your home URL
         else:
             messages.error(request, 'Invalid credentials')

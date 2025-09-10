@@ -16,28 +16,18 @@ def member_list(request):
             'recharge_time': recharge.recharge_time if recharge else None,
             'valid_till': recharge.valid_till if recharge else None
         })
-
-    return render(request, 'members/member_list.html', {'members': member_data})
-
-def add_recharge(request, user_id):
-    user = get_object_or_404(User, id=user_id, is_customer=True)
-
     if request.method == 'POST':
-        validity_days = request.POST.get('validity_days', 30)  # default to 30 days
-        recharge = Recharge(user=user, validity_days=validity_days)
+        username = request.POST.get('username')
+        recharge_time = request.POST.get('recharge_time')
+        user=get_object_or_404(User, username=username, is_customer=True)
         
-        try:
-            recharge.full_clean()  # run model validations
-            recharge.save()
-            return redirect('customer_list')
-        except ValidationError as e:
-            return render(request, 'members/recharge_form.html', {
-                'user': user,
-                'errors': e.message_dict,
-                'title': '➕ Add Recharge'
-            })
+        
+        
+        
+        
+    return render(request, 'members/admin.html', {'members': member_data})
 
-    return render(request, 'members/recharge_form.html', {'user': user, 'title': '➕ Add Recharge'})
+
 
 
 # views.py
@@ -91,7 +81,7 @@ def edit_member(request, user_id):
             user.save()
             return redirect('customer_list')
         except ValidationError as e:
-            return render(request, 'members/customer_form.html', {
+            return render(request, 'members/admin.html', {
                 'user': user,
                 'errors': e.message_dict,
                 'title': '✏️ Edit Member'
