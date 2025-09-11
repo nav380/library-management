@@ -1,16 +1,21 @@
 from django.shortcuts import render,redirect
-
-
-
-
-# library/views.py
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from main.models import Book
 from django.utils.dateparse import parse_date
+from main.serializers import BookSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 def book_list(request):
     books = Book.objects.all()
     return render(request, 'books/admin.html', {'books': books})
+
+@api_view(['GET'])
+def api_book_list(request):
+    books = Book.objects.all()
+    serializer = BookSerializer(books, many=True)
+    return Response(serializer.data)
 
 def add_book(request):
     if request.method == 'POST':

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'books',
     'accounts',
     'main',
+    'rest_framework',
     
 ]
 

@@ -1,5 +1,5 @@
 from django.urls import path
-from .view.books import book_list, add_book, edit_book
+from .view.books import book_list, add_book, edit_book, api_book_list
 from .view.home import home
 from .view.members import member_list, add_member, edit_member
 from .view.borrow import borrow 
@@ -12,6 +12,7 @@ from .view.return_book import return_book
 urlpatterns = [
     path('', home, name='home'),
     path('books/', book_list, name='books'),
+    path('api/books/', api_book_list, name='api_book_list'),
     path('add-book/', add_book, name='add_book'),
     path('edit-book/<int:book_id>/', edit_book, name='edit_book'),
     path('members/', member_list, name='members'),
